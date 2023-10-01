@@ -15,7 +15,7 @@
       "secrets": [
         {
           "name": "DJANGO_SECRET_KEY",
-          "value": "arn:aws:secretsmanager:eu-west-2:232264112986:secret:dimension/api/django_secret_key-eyfbiK"
+          "valueFrom": "arn:aws:secretsmanager:eu-west-2:232264112986:secret:dimension/api/django_secret_key-eyfbiK"
         }
       ],
       "logConfiguration": {
