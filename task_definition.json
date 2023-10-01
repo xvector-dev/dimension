@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "django_app",
-      "image": "dkr.ecr.eu-west-2.amazonaws.com/ci_cd",
+      "image": "dkr.ecr.eu-west-2.amazonaws.com/singularity-api",
       "memory": "2048",
       "essential": true,
       "portMappings": [
