@@ -12,12 +12,11 @@
           "protocol": "tcp"
         }
       ],
-      "environment": [
+      "secrets": [
         {
           "name": "DJANGO_SECRET_KEY",
-          "value": "django-insecure-$zs*eg_x-2_d9%yqwczrzv$mvpp10iq&#sdp+p9m2mv(h(_m5p"
-        },
-        { "name": "DEBUG", "value": "True" }
+          "value": "arn:aws:secretsmanager:eu-west-2:232264112986:secret:dimension/api/django_secret_key-eyfbiK"
+        }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
