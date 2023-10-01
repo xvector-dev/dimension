@@ -1,5 +1,5 @@
 {
-  "executionRoleArn": "arn:aws:iam::123456789:role/EcsGaRole",
+  "executionRoleArn": "arn:aws:iam::232264112986:role/ecsagent",
   "containerDefinitions": [
     {
       "name": "django_app",
