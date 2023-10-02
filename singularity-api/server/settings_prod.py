@@ -1,12 +1,11 @@
 from .settings_base import *
 
 from pathlib import Path
-from decouple import config
 import os
 import json
 
 # Retrieve the entire secret
-secret_json = config('MAIN_SECRET_SOURCE')
+secret_json = os.environ.get('MAIN_SECRET_SOURCE')
 
 # Parse the JSON to get individual values
 secret_data = json.loads(secret_json)
