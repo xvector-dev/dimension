@@ -1,7 +1,15 @@
+from .settings_base import *
 
 from pathlib import Path
 from decouple import config
 import os
+import json
+
+# Retrieve the entire secret
+secret_json = config('MAIN_SECRET_SOURCE')
+
+# Parse the JSON to get individual values
+secret_data = json.loads(secret_json)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,16 +18,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = secret_data.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', default=False, cast=bool)
+DEBUG = secret_data.get('DEBUG', False)
 
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS.extend(
     filter(
         None,
-        os.environ.get('ALLOWED_HOSTS', default="").split(',')
+        secret_data.get('ALLOWED_HOSTS', "").split(',')
     )
 )
 
@@ -99,9 +107,9 @@ AWS_S3_REGION_NAME = 'eu-west-2'
 S3_USE_SIGV4 = True
 
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = secret_data.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = secret_data.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = secret_data.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.eu-west-2.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
@@ -127,12 +135,12 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Email Settings
 EMAIL_BACKEND = 'django_ses.SESBackend'
-AWS_SES_ACCESS_KEY_ID = config('AWS_SES_ACCESS_KEY_ID')
-AWS_SES_SECRET_ACCESS_KEY = config('AWS_SES_SECRET_ACCESS_KEY')
-AWS_SES_REGION_NAME = config('AWS_SES_REGION_NAME')  # 'us-west-2'
+AWS_SES_ACCESS_KEY_ID = secret_data.get('AWS_SES_ACCESS_KEY_ID')
+AWS_SES_SECRET_ACCESS_KEY = secret_data.get('AWS_SES_SECRET_ACCESS_KEY')
+AWS_SES_REGION_NAME = secret_data.get('AWS_SES_REGION_NAME')  # 'us-west-2'
 AWS_SES_REGION_ENDPOINT = f'email.{AWS_SES_REGION_NAME}.amazonaws.com'
-AWS_SES_FROM_EMAIL = config('AWS_SES_FROM_EMAIL')
-DEFAULT_FROM_EMAIL = config('AWS_SES_FROM_EMAIL')
+AWS_SES_FROM_EMAIL = secret_data.get('AWS_SES_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = secret_data.get('AWS_SES_FROM_EMAIL')
 USE_SES_V2 = True
 
 # Password validation
@@ -177,7 +185,7 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
     'TOKEN_MODEL': None,
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': config('REDIRECT_URLS').split(',')
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': secret_data.get('REDIRECT_URLS').split(',')
 }
 
 # Cookies Settings
@@ -189,8 +197,8 @@ AUTH_COOKIE_PATH = '/'
 AUTH_COOKIE_SAMESITE = 'None'
 
 # Google Auth Settings
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_AUTH_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_AUTH_SECRET_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = secret_data.get('GOOGLE_AUTH_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = secret_data.get('GOOGLE_AUTH_SECRET_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -199,8 +207,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 
 # Facebook Auth Settings
-SOCIAL_AUTH_FACEBOOK_KEY = config('FACEBOOK_AUTH_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = config('FACEBOOK_AUTH_SECRET_KEY')
+SOCIAL_AUTH_FACEBOOK_KEY = secret_data.get('FACEBOOK_AUTH_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = secret_data.get('FACEBOOK_AUTH_SECRET_KEY')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, first_name, last_name'
@@ -221,7 +229,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-DOMAIN = config('DOMAIN')
+DOMAIN = secret_data.get('DOMAIN')
 SITE_NAME = 'Singularity'
 
 # Static files (CSS, JavaScript, Images)
