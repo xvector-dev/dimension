@@ -12,10 +12,11 @@
           "protocol": "tcp"
         }
       ],
+
       "secrets": [
         {
           "name": "DJANGO_SETTINGS_MODULE",
-          "value": "server.settings_prod"
+          "valueFrom": "server.settings_prod"
         },
         {
           "name": "MAIN_SECRET_SOURCE",
