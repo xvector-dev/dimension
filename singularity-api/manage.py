@@ -7,16 +7,16 @@ import json
 
 def main():
     """Run administrative tasks."""
-    secret_json = os.environ.get('DJANGO_SETTINGS_MODULE')
-    # Parse the JSON to get individual values
-    secret_data = json.loads(secret_json)
-    django_settings_module = secret_data.get('DJANGO_SETTINGS_MODULE')
+    # secret_json = os.environ.get('DJANGO_SETTINGS_MODULE')
+    # # Parse the JSON to get individual values
+    # secret_data = json.loads(secret_json)
+    # django_settings_module = secret_data.get('DJANGO_SETTINGS_MODULE')
 
-    if not django_settings_module:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings_dev")
-    else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", django_settings_module)
-
+    # if not django_settings_module:
+    #     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings_dev")
+    # else:
+    #     os.environ.setdefault("DJANGO_SETTINGS_MODULE", django_settings_module)
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings_prod")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
