@@ -15,7 +15,7 @@
       "secrets": [
         {
           "name": "DJANGO_SETTINGS_MODULE",
-          "value": "arn:aws:secretsmanager:eu-west-2:232264112986:secret:dimension/api/settings_module-X9U1Xo"
+          "valueFrom": "arn:aws:secretsmanager:eu-west-2:232264112986:secret:dimension/api/settings_module-X9U1Xo"
         },
         {
           "name": "MAIN_SECRET_SOURCE",
