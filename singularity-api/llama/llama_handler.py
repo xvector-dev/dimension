@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 # Retrieve the entire secret
 secret_json = os.environ.get('MAIN_SECRET_SOURCE')
