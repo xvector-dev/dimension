@@ -7,7 +7,7 @@ on:
 env:
   AWS_REGION: eu-west-2
   ECR_REPOSITORY: singularity-api
-  ECS_SERVICE: singularity-service
+  ECS_SERVICE: dimension-service
   ECS_CLUSTER: singularity-api-cluster
   ECS_TASK_DEFINITION: ./task_definition.json
   CONTAINER_NAME: django_app
