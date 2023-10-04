@@ -17,6 +17,5 @@ COPY run.sh .
 
 RUN chmod +x run.sh
 
-EXPOSE 8081
 
 CMD ["./run.sh"]
