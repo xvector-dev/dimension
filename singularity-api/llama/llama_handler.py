@@ -1,14 +1,19 @@
 import requests
 import json
 import os
+from decouple import config
 
-# Retrieve the entire secret
-secret_json = os.environ.get('MAIN_SECRET_SOURCE')
+try:
+    # Retrieve the entire secret
+    secret_json = os.environ.get('MAIN_SECRET_SOURCE')
 
-# Parse the JSON to get individual values
-secret_data = json.loads(secret_json)
+    # Parse the JSON to get individual values
+    secret_data = json.loads(secret_json)
 
-HUGGINFACE_API_KEY = secret_data.get('HUGGINFACE_API_KEY')
+    HUGGINFACE_API_KEY = secret_data.get('HUGGINFACE_API_KEY')
+except:
+
+    HUGGINFACE_API_KEY = config('HUGGINFACE_API_KEY')
 
 
 class HandleLLamaModel():
