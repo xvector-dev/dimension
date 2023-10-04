@@ -66,3 +66,16 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+
+      - name: Set Service Connect Configurations
+        uses: aws-actions/amazon-ecs-set-service-connect-configs@v1
+        with:
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          service-connect-configs: |
+            - containerName: ${{ env.CONTAINER_NAME }}
+              protocol: tcp
+              port: 80 # Replace with your desired port
+              namespace: dimension-api # Replace with your Cloud Map namespace name
+              portName: apiport # Replace with your service's port name
+              discoveryName: backendapi # Replace with your service's name
